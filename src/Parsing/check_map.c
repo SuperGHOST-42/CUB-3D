@@ -10,38 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Libraries/so_long.h"
-
-void	check_rows(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->rows)
-	{
-		if (map->full[i][0] != WALL)
-			error_msg("Wall missing in the first colum.");
-		else if (map->full[i][map->colums - 1] != WALL)
-			error_msg("Wall missing in the last colum.");
-		i++;
-	}
-}
-
-void	check_columns(t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (i < map->colums)
-	{
-		if (map->full[0][i] != WALL)
-			error_msg("Wall missing in the first row.");
-		else if (map->full[map->rows - 1][i] != WALL)
-			error_msg("Wall missing from the last row.");
-		i++;
-	}
-}
-
 void	count_map(t_map *map)
 {
 	int		x;

@@ -10,13 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Libraries/so_long.h"
+#include "../lib/cub3d.h"
 
 void	check_command(int argc, char *argv)
 {
 	int	parameter_len;
 
-	map()->map_alloc = false;
 	if (argc > 2)
 	{
 		ft_printf("Too many arguments.\n");
@@ -28,36 +27,10 @@ void	check_command(int argc, char *argv)
 		exit(0);
 	}
 	parameter_len = ft_strlen(argv);
-	if (!ft_strnstr(&argv[parameter_len - 4], ".ber", 4))
+	if (!ft_strnstr(&argv[parameter_len - 4], ".cub", 4))
 	{
 		ft_printf("Map file extention is wrong\n");
 		exit(0);
-	}
-}
-
-void	check_for_empty_line(char *arr)
-{
-	int	i;
-
-	i = 0;
-	if (arr[0] == '\n' || arr[0] == '\0')
-	{
-		free(arr);
-		error_msg("Empty line at the beginning.\n");
-	}
-	else if (arr[ft_strlen(arr) - 1] == '\n')
-	{
-		free (arr);
-		error_msg("Empty line at the end.\n");
-	}
-	while (arr[i + 1])
-	{
-		if (arr[i] == '\n' && arr[i + 1] == '\n')
-		{
-			free(arr);
-			error_msg("Empty line in the middle.\n");
-		}
-		i++;
 	}
 }
 
