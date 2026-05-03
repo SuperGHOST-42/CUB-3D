@@ -16,7 +16,8 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 
 SRC			= main.c \
 			  parse.c \
-			  moves.c
+			  moves.c \
+			  raycasting.c
 
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

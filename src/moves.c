@@ -6,11 +6,12 @@
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 19:00:29 by arpereir          #+#    #+#             */
-/*   Updated: 2026/05/03 19:25:46 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/05/03 23:41:14 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub.h"
+#include "../includes/macro.h"
 
 static int	can_move(t_game *game, double x, double y)
 {
@@ -25,7 +26,7 @@ void	move_forward(t_game *game)
 	double	new_y;
 	double	speed;
 
-	speed = 0.2;
+	speed = SPEED;
 	new_x = game->player.x + game->player.dir_x * speed;
 	new_y = game->player.y + game->player.dir_y * speed;
 	if (can_move(game, new_x, game->player.y))
@@ -40,7 +41,7 @@ void	move_backward(t_game *game)
 	double	new_y;
 	double	speed;
 
-	speed = 0.2;
+	speed = SPEED;
 	new_x = game->player.x - game->player.dir_x * speed;
 	new_y = game->player.y - game->player.dir_y * speed;
 	if (can_move(game, new_x, game->player.y))
@@ -55,7 +56,7 @@ void	move_left(t_game *game)
 	double	new_y;
 	double	speed;
 
-	speed = 0.2;
+	speed = SPEED;
 	new_x = game->player.x - (game->player.plane_x * speed);
 	new_y = game->player.y - (game->player.plane_y * speed);
 	if (can_move(game, new_x, game->player.y))
@@ -70,7 +71,7 @@ void	move_right(t_game *game)
 	double	new_y;
 	double	speed;
 
-	speed = 0.2;
+	speed = SPEED;
 	new_x = game->player.x + (game->player.plane_x * speed);
 	new_y = game->player.y + (game->player.plane_y * speed);
 	if (can_move(game, new_x, game->player.y))
@@ -85,7 +86,7 @@ void	rotate_left(t_game *game)
 	double	old_plane_x;
 	double	rot_speed;
 
-	rot_speed = 0.1;
+	rot_speed = ROT_SPEED;
 	old_dir_x = game->player.dir_x;
 	game->player.dir_x = game->player.dir_x * cos(rot_speed)
 		- game->player.dir_y * sin(rot_speed);
@@ -104,7 +105,7 @@ void	rotate_right(t_game *game)
 	double	old_plane_x;
 	double	rot_speed;
 
-	rot_speed = 0.1;
+	rot_speed = ROT_SPEED;
 	old_dir_x = game->player.dir_x;
 	game->player.dir_x = game->player.dir_x * cos(-rot_speed)
 		- game->player.dir_y * sin(-rot_speed);

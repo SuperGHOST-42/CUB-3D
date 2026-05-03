@@ -6,7 +6,7 @@
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 17:31:14 by arpereir          #+#    #+#             */
-/*   Updated: 2026/05/03 19:25:52 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/05/03 23:48:11 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include "libft/libft.h"
+# include "macro.h"
 
 typedef struct s_player
 {
@@ -24,8 +25,8 @@ typedef struct s_player
 	double	y;
 	double	dir_x;
 	double	dir_y;
-	double	plane_x;
-	double	plane_y;
+	double	fov_x;
+	double	fov_y;
 } t_player;
 
 typedef struct s_game
