@@ -12,36 +12,59 @@
 # include <string.h>
 # include <sys/time.h>
 
+typedef struct s_colors
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_colors;
+
 typedef enum e_bool
 {
 	false,
 	true
 }	t_bool;
 
-typedef struct s_map
+typedef enum e_token
 {
-	char		**full;
-	char		*map_name;
+    TOKEN_TEXTURE,
+    TOKEN_COLOR,
+    TOKEN_INVALID
+}   t_token;
+
+typedef struct s_game
+{
+	void		*mlx;
+	void		*win;
+	char		**full_map;
+	char		*map_path;
 	int			players;
 	t_player	player;
 	t_bool		map_alloc;
-}	t_map;
+	t_img		img;
+	t_textures	*textures;
+	t_colors	floor;
+	t_colors	ceiling;
+}				t_game;
 
-typedef struct s_win
+typedef struct s_img
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-}	t_win;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
 
 typedef struct s_player
 {
-	int		start_x;
-	int		start_y;
-	double	pos_x;
-	double	pos_y;
-	char	init_direction; //N/S/E/W
-}	t_player;
-
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+} t_player;
 
 typedef struct s_textures
 {
