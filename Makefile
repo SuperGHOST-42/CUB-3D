@@ -11,7 +11,7 @@ SRC_DIR		= src
 OBJ_DIR		= obj
 INC_DIR		= includes
 
-LIBFT_DIR	= includes/libft
+LIBFT_DIR	= Libft
 LIBFT		= $(LIBFT_DIR)/libft.a
 
 MLX_DIR		= includes/minilibx-linux
@@ -22,7 +22,10 @@ SRC			= main.c \
 			  moves.c \
 			  raycast.c \
 			  render.c \
-			  mlx_init.c
+			  mlx_init.c \
+			  init_game.c \
+			  map_init.c \
+			  free.c
 
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
