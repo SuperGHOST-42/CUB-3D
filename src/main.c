@@ -5,34 +5,46 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/03 17:31:07 by arpereir          #+#    #+#             */
-/*   Updated: 2026/06/09 13:15:55 by arpereir         ###   ########.fr       */
+/*   Created: 2026/04/27 16:22:35 by figomes           #+#    #+#             */
+/*   Updated: 2026/06/10 00:02:54 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub.h"
+#include "../Library/cub3d.h"
 
-int main(int argc, char **argv)
+void	print_textures(t_textures *t)
 {
-	(void)argc;
-	(void)argv;
-	t_game	game;
-	char	*test_map[] = 
-					{
-					"1111111111",
-					"1000000001",
-					"1001000001",
-					"1000000001",
-					"100000N001",
-					"1111111111",
-					NULL
-					};
-	ft_bzero(&game, sizeof(t_game));
-	game.map = dup_map(test_map);
+	printf("TEXTURES:\n");
+	printf("NO: %s\n", t->north_path);
+	printf("SO: %s\n", t->south_path);
+	printf("WE: %s\n", t->west_path);
+	printf("EA: %s\n", t->east_path);
+}
 
-	init_player(&game);
-	init_mlx(&game);
-	raycast(&game);
+void	print_colors(char *name, t_colors c)
+{
+	printf("%s: R=%d G=%d B=%d\n", name, c.r, c.g, c.b);
+}
+
+void	print_game(t_game *g)
+{
+	printf("\n===== GAME DEBUG =====\n");
+
+	print_textures(g->textures);
+	print_colors("FLOOR", g->textures->floor);
+	print_colors("CEILING", g->textures->ceiling);
+
+	printf("======================\n");
+}
+
+int	main(int argc, char **argv)
+{
+	t_game	game;
 	
+	check_command(argc, argv[1]);
+	init_game(&game);
+	init_map(argv[1], &game);
+	print_game(&game);
+	clean_game(&game);
 	return (0);
 }

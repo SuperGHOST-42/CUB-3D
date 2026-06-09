@@ -1,0 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/07 16:11:46 by figomes           #+#    #+#             */
+/*   Updated: 2026/06/15 14:07:37 by figomes          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	size_t	start;
+	size_t	len;
+	char	*var;
+
+	start = 0;
+	if (!s1 || !set)
+		return (NULL);
+	len = ft_strlen(s1);
+	while (s1[start] != '\0' && ft_strchr(set, s1[start]))
+		start++;
+	while (ft_strrchr(set, s1[len]))
+		len--;
+	var = ft_substr(s1, start, len - start + 1);
+	return (var);
+}
