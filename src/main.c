@@ -6,7 +6,7 @@
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 17:31:07 by arpereir          #+#    #+#             */
-/*   Updated: 2026/05/03 19:28:50 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/05/15 17:50:37 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int main(int argc, char **argv)
 	game.map = dup_map(test_map);
 
 	init_player(&game);
+	raycast(&game);
+	init_mlx(&game);
 	
 	return (0);
 }

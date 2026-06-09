@@ -17,8 +17,8 @@ void	init_player(t_game *game)
 				game->player.y = y + 0.5;
 				game->player.dir_x = 0;
 				game->player.dir_y = -1;
-				game->player.fov_x = 0.66;
-				game->player.fov_y = 0;
+				game->player.plane_x = 0.66;
+				game->player.plane_y = 0;
 				game->map[y][x] = '0';
 				return ;
 			}
