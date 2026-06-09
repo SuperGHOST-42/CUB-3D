@@ -6,9 +6,11 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:23:46 by figomes           #+#    #+#             */
-/*   Updated: 2025/06/24 16:23:48 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/08 15:38:24 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../Library/cub3d.h"
 
 void	count_map(t_map *map)
 {

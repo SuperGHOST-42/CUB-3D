@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: figomes <figomes@student.42.fr>            #+#  +:+       +#+        */
+/*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026-04-27 16:22:35 by figomes           #+#    #+#             */
-/*   Updated: 2026-04-27 16:22:35 by figomes          ###   ########.fr       */
+/*   Created: 2026/04/27 16:22:35 by figomes           #+#    #+#             */
+/*   Updated: 2026/06/08 15:38:11 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/cub3d.h"
+#include "../../Library/cub3d.h"
 
 int	main(int argc, char **argv)
 {

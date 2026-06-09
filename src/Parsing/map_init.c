@@ -6,11 +6,11 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:24:26 by figomes           #+#    #+#             */
-/*   Updated: 2025/06/24 16:24:28 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/08 15:38:01 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../lib/cub3d.h"
+#include "../../Library/cub3d.h"
 
 void	check_command(int argc, char *argv)
 {

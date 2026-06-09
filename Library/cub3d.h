@@ -1,8 +1,8 @@
 #ifndef CUB3D
 #define CUB3D
 
-# include "../minilibx-linux/mlx.h"
-# include "../libft/libft.h"
+//# include "../minilibx-linux/mlx.h"
+# include "../Libft/libft.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <X11/X.h>
