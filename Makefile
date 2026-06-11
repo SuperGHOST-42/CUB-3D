@@ -1,16 +1,23 @@
-NAME      	= cub3d
-CC        	= cc
+NAME       = cub3d
+CC         = cc
 
-CFLAGS    	= -Wall -Wextra -Werror -g
-SRC_DIR   	= ./src
-OBJ_DIR   	= ./obj
+CFLAGS     = -Wall -Wextra -Werror -g
 
-FT_INCLUDE 	= -Ilibft -Llibft -lft
-INCLUDE 	= -I ./ minilibx-linux/libmlx_Linux.a
-_MLX		= ./minilibx-linux
-_MLX_FLAGS  = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz 
+SRC_DIR    = ./src
+OBJ_DIR    = ./obj
 
-SRCS =	
+LIBFT_DIR  = ./Libft
+LIBFT      = -L$(LIBFT_DIR) -lft
+
+MLX_DIR    = ./minilibx-linux
+MLX_FLAGS  = -L$(MLX_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+
+INCLUDES   = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR)
+
+SRCS =  src/main.c 		\
+        src/init_game.c \
+		src/free.c		\
+        src/map_init.c
 
 OBJ = $(addprefix $(OBJ_DIR)/,$(notdir $(SRCS:.c=.o)))
 
@@ -19,22 +26,21 @@ all: $(OBJ_DIR) $(NAME)
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
-$(NAME): $(OBJ) 
-	make -C libft/
-	cd minilibx-linux; ./configure
-	@$(CC) $(CFLAGS) $(OBJ) $(_MLX_FLAGS) $(FT_INCLUDE) -o $(NAME) $(INCLUDE) -L $(_MLX)
+$(NAME): $(OBJ)
+	make -C $(LIBFT_DIR)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)
-	make clean -C libft/
+	make clean -C $(LIBFT_DIR)
 
 fclean: clean
-	rm -rf $(NAME)
-	make fclean -C libft/
+	rm -f $(NAME)
+	make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
-.PHONY: all clean fclean re run
+.PHONY: all clean fclean re

@@ -12,50 +12,6 @@
 # include <string.h>
 # include <sys/time.h>
 
-typedef struct s_colors
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_colors;
-
-typedef enum e_bool
-{
-	false,
-	true
-}	t_bool;
-
-typedef enum e_token
-{
-    TOKEN_TEXTURE,
-    TOKEN_COLOR,
-    TOKEN_INVALID
-}   t_token;
-
-typedef struct s_game
-{
-	void		*mlx;
-	void		*win;
-	char		**full_map;
-	char		*map_path;
-	int			players;
-	t_player	player;
-	t_bool		map_alloc;
-	t_img		img;
-	t_textures	*textures;
-	t_colors	floor;
-	t_colors	ceiling;
-}				t_game;
-
-typedef struct s_img
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_img;
-
 typedef struct s_player
 {
 	double	x;
@@ -66,17 +22,63 @@ typedef struct s_player
 	double	plane_y;
 } t_player;
 
+typedef struct s_colors
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_colors;
+
+typedef enum e_bool
+{
+	FALSE,
+	TRUE
+}	t_bool;
+
+typedef enum e_token
+{
+    TOKEN_TEXTURE,
+    TOKEN_COLOR,
+    TOKEN_INVALID
+}   t_token;
+
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img;
+
 typedef struct s_textures
 {
 	char	*north_path;
 	char	*south_path;
 	char	*east_path;
 	char	*west_path;
-	char	*floor_colors;
-	char	*ceiling_colors;
+	t_colors	floor;
+	t_colors	ceiling;
 }	t_textures;
 
+typedef struct s_game
+{
+	void		*mlx;
+	void		*win;
+	char		**full_map;
+	char		*map_path;
+	int			players;
+	//t_player	player;
+	t_bool		map_alloc;
+	//t_img		img;
+	t_textures	*textures;
+}				t_game;
 
 void	check_command(int argc, char *argv);
+void	init_map(char *argv, t_game *map);
+void	init_game(t_game *game);
+void	error_msg(char *message, t_game *game);
+char	*ft_str_doublepointer(char **s1, const char *s2);
+void	clean_game(t_game *game);
 
 #endif

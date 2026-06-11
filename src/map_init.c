@@ -6,11 +6,11 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:24:26 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/09 15:50:21 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/11 15:49:11 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../Library/cub3d.h"
+#include "../Library/cub3d.h"
 
 void	check_command(int argc, char *argv)
 {
@@ -115,30 +115,23 @@ void	parse_rgb(char *value, t_colors *color)
 	int		i;
 
 	i = 0;
-
 	rgb = ft_split(value, ',');
 	if (!rgb)
 		return ; // erro malloc
-
 	while (rgb[i])
 		i++;
-
 	if (i != 3)
 		return ; // erro formato
-
 	if (!is_valid_number(rgb[0]) || !is_valid_number(rgb[1]) || !is_valid_number(rgb[2]))
 		return ; // erro
-
 	color->r = ft_atoi(rgb[0]);
 	color->g = ft_atoi(rgb[1]);
 	color->b = ft_atoi(rgb[2]);
-
 	// valida range
 	if (color->r < 0 || color->r > 255
 		|| color->g < 0 || color->g > 255
 		|| color->b < 0 || color->b > 255)
 		return ; // erro
-		
 	i = 0;
 	while (rgb[i])
 		free(rgb[i++]);
@@ -153,26 +146,20 @@ void	handle_colors(char *line, char *token, t_game *map)
 	char	*value;
 
 	i = 0;
-
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-
 	if (line[i] == '\0')
 		return ;
-
 	start = i;
 	len = 0;
-
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
 	{
 		i++;
 		len++;
 	}
-
 	value = ft_substr(line, start, len);
 	if (!value)
 		return ;
-
 	while (line[i])
 	{
 		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
@@ -182,68 +169,88 @@ void	handle_colors(char *line, char *token, t_game *map)
 		}
 		i++;
 	}
-
 	if (ft_strcmp(token, "F") == 0)
-		parse_rgb(value, &map->floor);
+		parse_rgb(value, &map->textures->floor);
 	else if (ft_strcmp(token, "C") == 0)
-		parse_rgb(value, &map->ceiling);
-
+		parse_rgb(value, &map->textures->ceiling);
 	free(value);
 }
 
-void	parse_texture(char	*line, t_game *map)
+void	parse_texture(char *line, t_game *map)
 {
 	int		i;
-	int		j;
+	int		start;
+	int		len;
 	char	*token;
-	t_token	*token_type;
+	t_token	token_type;
 
 	i = 0;
-	j = 0;
+
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
+
 	if (line[i] == '\0' || line[i] == '\n')
 		return ;
-	while (line[i] != ' ' && line[i] != '\t' && line[i] != '\0' && line[i] != '\n')
-		token[j++] = line[i++];
-	token[j] = '\0';
+
+	start = i;
+	len = 0;
+
+	while (line[i] != ' ' && line[i] != '\t'
+		&& line[i] != '\0' && line[i] != '\n')
+	{
+		i++;
+		len++;
+	}
+
+	token = ft_substr(line, start, len);
+	if (!token)
+		return ; // erro malloc
+
 	token_type = check_token_type(token);
+
 	if (token_type == TOKEN_COLOR)
-		handle_colors(line, token, map);
+		handle_colors(line + i, token, map);
 	else if (token_type == TOKEN_TEXTURE)
-		handle_textures(line, token, map->textures);
+		handle_textures(line + i, token, map->textures);
 	else
-		return ; //Definir erro
+	{
+		free(token);
+		return ; // erro token inválido
+	}
+
+	free(token);
 }
 
 void	init_map(char *argv, t_game *map)
 {
-	char	*map_temp;
+	//char	*map_temp;
 	char	*line_temp;
 	int		map_fd;
-	char	**x;
+	//char	**x;
 
 	map_fd = open(argv, O_RDONLY);
 	if (map_fd == -1)
-		error_msg("The Map couldn't be opened\n");
-	map_temp = ft_strdup("");
-	while (true)
+		error_msg("The Map couldn't be opened\n", map);
+	//map_temp = ft_strdup("");
+	while (1)
 	{
 		line_temp = get_next_line(map_fd);
 		if (line_temp == NULL)
 			break ;
+		line_temp = ft_strtrim(line_temp, "\n");
+		printf("RAW LINE: [%s]\n", line_temp);
 		parse_texture(line_temp, map);
-		map_temp = ft_str_doublepointer(&map_temp, line_temp);
+		//map_temp = ft_str_doublepointer(&map_temp, line_temp);
 		free(line_temp);
 	}
 	close(map_fd);
-	check_for_empty_line(map_temp);
-	x = ft_split(map_temp, '\n');
-	map->full_map = x;
-	free(map_temp);
+	//check_for_empty_line(map_temp);
+	//x = ft_split(map_temp, '\n');
+	//map->full_map = x;
+	//free(map_temp);
 }
 
-int	check_retangular(char **map, int expected_cols)
+/*int	check_retangular(char **map, int expected_cols)
 {
 	int	i;
 	int	j;
@@ -259,7 +266,7 @@ int	check_retangular(char **map, int expected_cols)
 		i++;
 	}
 	return (1);
-}
+}*/
 
 /*void	start_map(void, t_game *map)
 {
