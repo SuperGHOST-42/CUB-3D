@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Library/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	init_textures(t_textures *textures)
 {
@@ -31,10 +31,21 @@ void	init_game(t_game *game)
 	game->mlx = NULL;
 	game->alloc_tex = 0;
 	game->win = NULL;
+	game->img.img = NULL;
+	game->img.addr = NULL;
+	game->img.bpp = 0;
+	game->img.line_len = 0;
+	game->img.endian = 0;
 	game->full_map = NULL;
 	game->map_path = NULL;
 	game->players = 0;
 	game->map_started = 0;
+	game->player.x = 0;
+	game->player.y = 0;
+	game->player.dir_x = 0;
+	game->player.dir_y = 0;
+	game->player.plane_x = 0;
+	game->player.plane_y = 0;
 	game->map_alloc = FALSE;
 	game->textures = NULL;
 	game->map_height = 0;

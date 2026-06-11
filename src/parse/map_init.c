@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:24:26 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/25 15:04:36 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/11 08:26:47 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Library/cub3d.h"
+#include "../../includes/cub3d.h"
 
 t_error	add_map_line(t_game *map, char *line)
 {
@@ -66,7 +66,6 @@ void	init_map(char *argv, t_game *map)
 			break ;
 		sanitize_line(line_temp);
 		printf("RAW LINE: [%s]\n", line_temp);
-		// CONFIG PHASE
 		if (map->alloc_tex < 6)
 		{
 			if (line_temp[0] == '\0')
@@ -76,7 +75,6 @@ void	init_map(char *argv, t_game *map)
 			}
 			err = parse_texture(line_temp, map, 0);
 		}
-		// BEFORE MAP START
 		else if (!map->map_started)
 		{
 			if (line_temp[0] == '\0')
@@ -87,12 +85,8 @@ void	init_map(char *argv, t_game *map)
 			map->map_started = 1;
 			err = add_map_line(map, line_temp);
 		}
-		// MAP PHASE
 		else
-		{
-			// 👉 SEM ERRO AQUI — só copiar
 			err = add_map_line(map, line_temp);
-		}
 		if (err != SUCCESS)
 		{
 			close(map_fd);

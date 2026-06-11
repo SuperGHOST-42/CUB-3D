@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub.h"
+#include "../includes/cub3d.h"
 
 static void	init_ray(t_game *game, t_ray *ray, int x)
 {
@@ -76,7 +76,7 @@ static void	perform_dda(t_game *game, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (game->map[ray->map_y][ray->map_x] == '1')
+		if (game->full_map[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
 	}
 }

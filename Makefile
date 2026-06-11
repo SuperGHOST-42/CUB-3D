@@ -18,18 +18,20 @@ MLX_DIR		= includes/minilibx-linux
 MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 SRC			= main.c \
-			  handle_colors.c \
-			  handle_textures.c \
-			  handle_textures2.c \
-			  validate_textures.c	\
-			  parse.c \
+			  parse/check_map.c \
+			  parse/free.c \
+			  parse/handle_colors.c \
+			  parse/handle_textures.c \
+			  parse/handle_textures2.c \
+			  parse/init_game.c \
+			  parse/map_init.c \
+			  parse/validate_textures.c	\
+			  parse/print.c \
+			  player_init.c \
 			  moves.c \
 			  raycast.c \
 			  render.c \
-			  mlx_init.c \
-			  init_game.c \
-			  map_init.c \
-			  free.c
+			  mlx_init.c
 
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
@@ -52,7 +54,7 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) \
 	-I$(INC_DIR) \
 	-I$(LIBFT_DIR) \

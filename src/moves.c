@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub.h"
+#include "../includes/cub3d.h"
 #include "../includes/macro.h"
 
 static int	can_move(t_game *game, double x, double y)
 {
-	if (game->map[(int)y][(int)x] == '1')
+	if (game->full_map[(int)y][(int)x] == '1')
 		return (0);
 	return (1);
 }

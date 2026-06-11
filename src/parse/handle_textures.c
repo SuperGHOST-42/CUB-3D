@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Library/cub3d.h"
+#include "../../includes/cub3d.h"
 
 static char	*extract_texture_value(char *line, int *i)
 {

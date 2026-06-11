@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Library/cub3d.h"
+#include "../../includes/cub3d.h"
 
 t_token	check_token_type(char *token)
 {
