@@ -6,7 +6,7 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:11:46 by figomes           #+#    #+#             */
-/*   Updated: 2025/12/13 16:12:11 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/15 14:07:37 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char	*ft_strtrim(char const *s1, char const *set)
 	char	*var;
 
 	start = 0;
-	len = ft_strlen(s1);
 	if (!s1 || !set)
 		return (NULL);
+	len = ft_strlen(s1);
 	while (s1[start] != '\0' && ft_strchr(set, s1[start]))
 		start++;
 	while (ft_strrchr(set, s1[len]))

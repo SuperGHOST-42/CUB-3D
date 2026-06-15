@@ -6,7 +6,7 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:54:30 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/11 15:24:30 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/15 12:47:27 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*ft_str_doublepointer(char **s1, const char *s2)
 
 void	error_msg(char *message, t_game *game)
 {
-	ft_printf("Error\n %s", message);
+	ft_printf("Error: %s\n", message);
 	clean_game(game);
 	exit (1);
 }

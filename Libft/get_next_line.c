@@ -3,61 +3,103 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: figomes <figomes@student.42.fr>            #+#  +:+       +#+        */
+/*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025-05-19 15:11:41 by figomes           #+#    #+#             */
-/*   Updated: 2025-05-19 15:11:41 by figomes          ###   ########.fr       */
+/*   Created: 2025/05/19 15:11:41 by figomes           #+#    #+#             */
+/*   Updated: 2026/06/15 14:28:58 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*read_file(char *buffer, int fd)
+static int	ft_linelen(char *str)
 {
-	char	*line;
-	int		reader;
+	int	i;
 
-	reader = 1;
-	line = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!line)
+	i = 0;
+	while (str && str[i] && str[i] != '\n')
+		i++;
+	if (str && str[i] == '\n')
+		i++;
+	return (i);
+}
+
+static char	*ft_linejoin(char *s1, char *s2)
+{
+	int		i;
+	int		j;
+	char	*str;
+
+	i = 0;
+	str = (char *)malloc(ft_linelen(s1) + ft_linelen(s2) + 1);
+	if (!str)
 		return (NULL);
-	while (!ft_strchr2(buffer, '\n') && reader != 0)
+	while (s1 && s1[i])
 	{
-		reader = read(fd, line, BUFFER_SIZE);
-		if (reader == -1)
-		{
-			free(line);
-			free(buffer);
-			return (NULL);
-		}
-		line[reader] = '\0';
-		buffer = ft_strjoin2(buffer, line);
+		str[i] = s1[i];
+		i++;
 	}
-	free(line);
-	return (buffer);
+	j = 0;
+	while (s2[j] != '\n' && s2[j])
+	{
+		str[i + j] = s2[j];
+		j++;
+	}
+	if (s2[j] == '\n')
+		str[i + j++] = '\n';
+	str[i + j] = '\0';
+	if (s1)
+		free(s1);
+	return (str);
+}
+
+static void	ft_free_gnl(char *str)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (str[i] != '\n' && i < BUFFER_SIZE)
+	{
+		str[i] = '\0';
+		i++;
+	}
+	if (str[i] == '\n')
+	{
+		str[i] = '\0';
+		i++;
+		while (i < BUFFER_SIZE)
+		{
+			str[j] = str[i];
+			str[i] = '\0';
+			i++;
+			j++;
+		}
+	}
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
-	char		*get_line;
+	static char		buffer [FOPEN_MAX][BUFFER_SIZE + 1];
+	char			*str;
+	int				i;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
-	buffer = read_file(buffer, fd);
-	if (!buffer)
+	i = 0;
+	if (read(fd, 0, 0) < 0 || FOPEN_MAX <= fd || BUFFER_SIZE <= 0)
+	{
+		if (fd > 0 && FOPEN_MAX > fd)
+			while (buffer[fd][i])
+				buffer[fd][i++] = '\0';
 		return (NULL);
-	get_line = ft_get_line(buffer);
-	buffer = ft_recover(buffer);
-	return (get_line);
+	}
+	str = NULL;
+	while (buffer[fd][0] || read(fd, buffer[fd], BUFFER_SIZE) > 0)
+	{
+		str = ft_linejoin(str, buffer[fd]);
+		ft_free_gnl(buffer[fd]);
+		if (str[ft_linelen(str) - 1] == '\n')
+			return (str);
+	}
+	return (str);
 }
-
-/*int	main(void)
-{
-	int	a = open("test.txt", O_RDONLY);
-	char *x = get_next_line(a);
-	printf("%s\n", x);
-	free(x);	
-	close(a);
-	return (0);
-}*/

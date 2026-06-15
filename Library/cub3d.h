@@ -12,6 +12,19 @@
 # include <string.h>
 # include <sys/time.h>
 
+typedef enum e_error
+{
+    SUCCESS = 0,
+	ERR_MALLOC,
+	ERR_INVALID_FORMAT,
+    ERR_DUP_TEXTURE,
+    ERR_DUP_COLOR,
+    ERR_INVALID_TOKEN,
+    ERR_INVALID_RGB,
+    ERR_MISSING_VALUE,
+    ERR_MAP_OPEN_FAIL
+} t_error;
+
 typedef struct s_player
 {
 	double	x;

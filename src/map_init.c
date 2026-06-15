@@ -6,7 +6,7 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:24:26 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/11 15:49:11 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/15 14:31:51 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_token	check_token_type(char *token)
 		return (TOKEN_INVALID);
 }
 
-void	handle_textures(char *line, char *token, t_textures *textures)
+t_error	handle_textures(char *line, char *token, t_textures *textures)
 {
 	int		i;
 	int		start;
@@ -63,7 +63,7 @@ void	handle_textures(char *line, char *token, t_textures *textures)
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (line[i] == '\0' || line[i] == '\n')
-		return ; // erro: sem path
+		return (ERR_MISSING_VALUE);
 	start = i;
 	len = 0;
 	while (line[i] != ' ' && line[i] != '\t' && line[i] != '\0' && line[i] != '\n')
@@ -73,24 +73,38 @@ void	handle_textures(char *line, char *token, t_textures *textures)
 	}
 	str = ft_substr(line, start, len);
 	if (!str)
-		return ; // erro malloc
+		return (ERR_MALLOC);
 	while (line[i] != '\0' && line[i] != '\n')
 	{
 		if (line[i] != ' ' && line[i] != '\t')
-		{
-			free(str);
-			return ; // erro: lixo depois do path
-		}
+			return (free(str), ERR_INVALID_FORMAT);
 		i++;
 	}
 	if (ft_strcmp(token, "NO") == 0)
+	{
+		if (textures->north_path != NULL)
+			return (free(str), ERR_DUP_TEXTURE);
 		textures->north_path = str;
+	}
 	else if (ft_strcmp(token, "SO") == 0)
+	{
+		if (textures->south_path != NULL)
+			return (free(str), ERR_DUP_TEXTURE);
 		textures->south_path = str;
+	}
 	else if (ft_strcmp(token, "WE") == 0)
+	{
+		if (textures->west_path != NULL)
+			return (free(str), ERR_DUP_TEXTURE);
 		textures->west_path = str;
+	}
 	else if (ft_strcmp(token, "EA") == 0)
+	{
+		if (textures->east_path != NULL)
+			return (free(str), ERR_DUP_TEXTURE);
 		textures->east_path = str;
+	}
+	return (SUCCESS);
 }
 
 static int	is_valid_number(char *str)
@@ -109,47 +123,51 @@ static int	is_valid_number(char *str)
 	return (1);
 }
 
-void	parse_rgb(char *value, t_colors *color)
+t_error	parse_rgb(char *value, t_colors *color)
 {
 	char	**rgb;
 	int		i;
+	t_error	err;
 
 	i = 0;
+	err = SUCCESS;
 	rgb = ft_split(value, ',');
 	if (!rgb)
-		return ; // erro malloc
+		return (ERR_MALLOC);
 	while (rgb[i])
 		i++;
 	if (i != 3)
-		return ; // erro formato
+		return (free(rgb), ERR_INVALID_FORMAT);
 	if (!is_valid_number(rgb[0]) || !is_valid_number(rgb[1]) || !is_valid_number(rgb[2]))
-		return ; // erro
+		return (free(rgb), ERR_INVALID_RGB);
 	color->r = ft_atoi(rgb[0]);
 	color->g = ft_atoi(rgb[1]);
 	color->b = ft_atoi(rgb[2]);
-	// valida range
 	if (color->r < 0 || color->r > 255
 		|| color->g < 0 || color->g > 255
 		|| color->b < 0 || color->b > 255)
-		return ; // erro
+		err = ERR_INVALID_RGB;
 	i = 0;
 	while (rgb[i])
 		free(rgb[i++]);
 	free(rgb);
+	return (err);
 }
 
-void	handle_colors(char *line, char *token, t_game *map)
+t_error	handle_colors(char *line, char *token, t_game *map)
 {
 	int		i;
 	int		start;
 	int		len;
 	char	*value;
+	t_error	err;
 
 	i = 0;
+	err = SUCCESS;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	if (line[i] == '\0')
-		return ;
+		return (ERR_INVALID_FORMAT);
 	start = i;
 	len = 0;
 	while (line[i] && line[i] != ' ' && line[i] != '\t')
@@ -159,95 +177,97 @@ void	handle_colors(char *line, char *token, t_game *map)
 	}
 	value = ft_substr(line, start, len);
 	if (!value)
-		return ;
+		return (ERR_MALLOC);
 	while (line[i])
 	{
 		if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
-		{
-			free(value);
-			return ; // erro lixo
-		}
+			return (free(value), ERR_INVALID_FORMAT);
 		i++;
 	}
 	if (ft_strcmp(token, "F") == 0)
-		parse_rgb(value, &map->textures->floor);
+	{
+		if (map->textures->floor.r != -1)
+			return (free(value), ERR_DUP_COLOR);
+		err = parse_rgb(value, &map->textures->floor);
+	}
 	else if (ft_strcmp(token, "C") == 0)
-		parse_rgb(value, &map->textures->ceiling);
-	free(value);
+	{
+		if (map->textures->ceiling.r != -1)
+			return (free(value), ERR_DUP_COLOR);
+		err = parse_rgb(value, &map->textures->ceiling);
+	}
+	return (free(value), err);
 }
 
-void	parse_texture(char *line, t_game *map)
+t_error	parse_texture(char *line, t_game *map, int i)
 {
-	int		i;
+	t_error	err;
 	int		start;
 	int		len;
 	char	*token;
 	t_token	token_type;
 
-	i = 0;
-
+	err = SUCCESS;
 	while (line[i] == ' ' || line[i] == '\t')
 		i++;
-
 	if (line[i] == '\0' || line[i] == '\n')
-		return ;
-
+		return (SUCCESS);
 	start = i;
 	len = 0;
-
 	while (line[i] != ' ' && line[i] != '\t'
 		&& line[i] != '\0' && line[i] != '\n')
 	{
 		i++;
 		len++;
 	}
-
 	token = ft_substr(line, start, len);
 	if (!token)
-		return ; // erro malloc
-
+		return (ERR_MALLOC);
 	token_type = check_token_type(token);
-
 	if (token_type == TOKEN_COLOR)
-		handle_colors(line + i, token, map);
+		err = handle_colors(line + i, token, map);
 	else if (token_type == TOKEN_TEXTURE)
-		handle_textures(line + i, token, map->textures);
+		err = handle_textures(line + i, token, map->textures);
 	else
 	{
-		free(token);
-		return ; // erro token inválido
+		return (free(token), ERR_INVALID_TOKEN);
 	}
-
-	free(token);
+	return (free(token), err);
 }
 
 void	init_map(char *argv, t_game *map)
 {
-	//char	*map_temp;
 	char	*line_temp;
+	char	*trimmed_line;
 	int		map_fd;
-	//char	**x;
+	t_error	err;
 
+	err = SUCCESS;
 	map_fd = open(argv, O_RDONLY);
 	if (map_fd == -1)
 		error_msg("The Map couldn't be opened\n", map);
-	//map_temp = ft_strdup("");
 	while (1)
 	{
 		line_temp = get_next_line(map_fd);
 		if (line_temp == NULL)
 			break ;
-		line_temp = ft_strtrim(line_temp, "\n");
-		printf("RAW LINE: [%s]\n", line_temp);
-		parse_texture(line_temp, map);
-		//map_temp = ft_str_doublepointer(&map_temp, line_temp);
+		if (line_temp[0] != '\n')
+		{
+			trimmed_line = ft_strtrim(line_temp, "\n");
+			printf("RAW LINE: [%s]\n", trimmed_line);
+			err = parse_texture(trimmed_line, map, 0);
+			if (err != SUCCESS)
+			{
+				close(map_fd);
+				free(trimmed_line);
+				free(line_temp);
+				return ;
+			}
+			free(trimmed_line);
+		}
 		free(line_temp);
 	}
 	close(map_fd);
-	//check_for_empty_line(map_temp);
-	//x = ft_split(map_temp, '\n');
-	//map->full_map = x;
-	//free(map_temp);
 }
 
 /*int	check_retangular(char **map, int expected_cols)

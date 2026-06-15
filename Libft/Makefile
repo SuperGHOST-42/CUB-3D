@@ -48,7 +48,6 @@ SRCS = ft_memset.c				\
 		ft_void.c		 		\
 		ft_putstr.c				\
 		ft_printf.c				\
-		get_next_line_utils.c 	\
 		get_next_line.c			\
 		ft_free_double_pointer.c \
 		ft_strcmp.c				\
