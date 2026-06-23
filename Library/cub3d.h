@@ -85,6 +85,7 @@ typedef struct s_game
 	t_bool		map_alloc;
 	//t_img		img;
 	t_textures	*textures;
+	int			alloc_tex;
 }				t_game;
 
 void	check_command(int argc, char *argv);
@@ -93,5 +94,10 @@ void	init_game(t_game *game);
 void	error_msg(char *message, t_game *game);
 char	*ft_str_doublepointer(char **s1, const char *s2);
 void	clean_game(t_game *game);
+void	print_error(t_error err, t_game *game);
+t_error	validate_config(t_game *map);
+t_error	parse_rgb(char *value, t_colors *color, t_game	*game);
+t_error	handle_colors(char *line, char *token, t_game *map);
+t_error	handle_textures(char *line, char *token, t_textures *textures, t_game *game);
 
 #endif

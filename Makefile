@@ -17,7 +17,10 @@ INCLUDES   = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR)
 SRCS =  src/main.c 		\
         src/init_game.c \
 		src/free.c		\
-        src/map_init.c
+        src/map_init.c \
+		src/handle_textures.c \
+		src/handle_colors.c \
+		src/validate_map.c
 
 OBJ = $(addprefix $(OBJ_DIR)/,$(notdir $(SRCS:.c=.o)))
 
