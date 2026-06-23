@@ -80,7 +80,9 @@ typedef struct s_game
 	void		*win;
 	char		**full_map;
 	char		*map_path;
+	int			map_height;
 	int			players;
+	int			map_started;
 	//t_player	player;
 	t_bool		map_alloc;
 	//t_img		img;

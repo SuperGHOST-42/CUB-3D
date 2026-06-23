@@ -6,7 +6,7 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:54:30 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/23 13:32:05 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/23 14:13:46 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ void	init_game(t_game *game)
 	game->full_map = NULL;
 	game->map_path = NULL;
 	game->players = 0;
+	game->map_started = 0;
 	game->map_alloc = FALSE;
 	game->textures = NULL;
+	game->map_height = 0;
 	game->textures = malloc(sizeof(t_textures));
 	if (!game->textures)
 		return ;

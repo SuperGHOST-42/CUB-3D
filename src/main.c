@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 16:22:35 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/10 00:02:54 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/06/23 14:19:23 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,25 @@ void	print_colors(char *name, t_colors c)
 	printf("%s: R=%d G=%d B=%d\n", name, c.r, c.g, c.b);
 }
 
+void	print_map(char **map)
+{
+	int	i;
+
+	if (!map)
+	{
+		printf("Map is NULL\n");
+		return ;
+	}
+	i = 0;
+	printf("===== MAP =====\n");
+	while (map[i])
+	{
+		printf("[%d] %s\n", i, map[i]);
+		i++;
+	}
+	printf("==============\n");
+}
+
 void	print_game(t_game *g)
 {
 	printf("\n===== GAME DEBUG =====\n");
@@ -33,6 +52,7 @@ void	print_game(t_game *g)
 	print_textures(g->textures);
 	print_colors("FLOOR", g->textures->floor);
 	print_colors("CEILING", g->textures->ceiling);
+	print_map(g->full_map);
 
 	printf("======================\n");
 }

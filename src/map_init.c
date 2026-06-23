@@ -6,7 +6,7 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:24:26 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/23 13:33:03 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/23 14:23:33 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,30 @@ t_error	parse_texture(char *line, t_game *map, int i)
 	return (free(token), err);
 }
 
+t_error	add_map_line(t_game *map, char *line)
+{
+	char	**new_map;
+	int		i;
+
+	new_map = malloc(sizeof(char *) * (map->map_height + 2));
+	if (!new_map)
+		return (ERR_MALLOC);
+	i = 0;
+	while (i < map->map_height)
+	{
+		new_map[i] = map->full_map[i];
+		i++;
+	}
+	new_map[i] = ft_strdup(line);
+	if (!new_map[i])
+		return (ERR_MALLOC);
+	new_map[i + 1] = NULL;
+	free(map->full_map);
+	map->full_map = new_map;
+	map->map_height++;
+	return (SUCCESS);
+}
+
 void	init_map(char *argv, t_game *map)
 {
 	char	*line_temp;
@@ -82,22 +106,44 @@ void	init_map(char *argv, t_game *map)
 		line_temp = get_next_line(map_fd);
 		if (line_temp == NULL)
 			break ;
-		if (line_temp[0] != '\n')
-		{
-			trimmed_line = ft_strtrim(line_temp, "\n");
-			printf("RAW LINE: [%s]\n", trimmed_line);
-			if (map->alloc_tex < 7)
-				err = parse_texture(trimmed_line, map, 0);
-			if (err != SUCCESS)
-			{
-				close(map_fd);
-				free(trimmed_line);
-				free(line_temp);
-				print_error(err, map);
-			}
-			free(trimmed_line);
-		}
+		trimmed_line = ft_strtrim(line_temp, "\n");
 		free(line_temp);
+		 if (!trimmed_line)
+        	continue;
+		printf("RAW LINE: [%s]\n", trimmed_line);
+		if (map->alloc_tex < 6)
+    	{
+			if (trimmed_line[0] == '\0')
+			{
+				free(trimmed_line);
+				continue;
+			}
+       		err = parse_texture(trimmed_line, map, 0);
+    	}
+    	// 2. after config but before map starts
+    	else if (!map->map_started)
+		{
+			if (trimmed_line[0] == '\0')
+			{
+				free(trimmed_line);
+				continue;
+			}
+			// primeira linha NÃO vazia começa o mapa
+			map->map_started = 1;
+			err = add_map_line(map, trimmed_line);
+		}
+    	// 3. inside map
+		else
+			err = add_map_line(map, trimmed_line);
+		if (err != SUCCESS)
+		{
+			close(map_fd);
+			free(trimmed_line);
+			free(line_temp);
+			print_error(err, map);
+		}
+		free(trimmed_line);
+
 	}
 	close(map_fd);
 }
