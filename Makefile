@@ -18,6 +18,9 @@ MLX_DIR		= includes/minilibx-linux
 MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 SRC			= main.c \
+			  handle_colors.c \
+			  handle_textures.c \
+			  validate_map.c	\
 			  parse.c \
 			  moves.c \
 			  raycast.c \

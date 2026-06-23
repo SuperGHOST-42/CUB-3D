@@ -6,13 +6,13 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:23:46 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/11 15:01:28 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/23 13:30:00 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Library/cub3d.h"
 
-void	count_map(t_game *map)
+/*void	count_map(t_game *map)
 {
 	int		x;
 	int		y;
@@ -45,4 +45,4 @@ void	verify_parameters(t_map *map)
 		error_msg("Invalid number of Exits.");
 	else if (map->players != 1)
 		error_msg("Invalid Player quantity.");
-}
+}*/

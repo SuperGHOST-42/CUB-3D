@@ -6,7 +6,7 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:54:30 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/15 12:47:27 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/23 13:32:05 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	init_textures(t_textures *textures)
 void	init_game(t_game *game)
 {
 	game->mlx = NULL;
+	game->alloc_tex = 0;
 	game->win = NULL;
 	game->full_map = NULL;
 	game->map_path = NULL;
@@ -63,4 +64,28 @@ void	error_msg(char *message, t_game *game)
 	ft_printf("Error: %s\n", message);
 	clean_game(game);
 	exit (1);
+}
+
+void	print_error(t_error err, t_game *game)
+{
+	if (err == ERR_MALLOC)
+		printf("Memory allocation failed\n");
+	else if (err == ERR_INVALID_FORMAT)
+		printf("Invalid format\n");
+	else if (err == ERR_DUP_TEXTURE)
+		printf("Duplicate texture definition\n");
+	else if (err == ERR_DUP_COLOR)
+		printf("Duplicate color definition\n");
+	else if (err == ERR_INVALID_TOKEN)
+		printf("Invalid token\n");
+	else if (err == ERR_INVALID_RGB)
+		printf("Invalid RGB value\n");
+	else if (err == ERR_MISSING_VALUE)
+		printf("Missing value\n");
+	else if (err == ERR_MAP_OPEN_FAIL)
+		printf("Failed to open map file\n");
+	else
+		printf("Unknown error\n");
+	clean_game(game);
+	exit(2);
 }
