@@ -6,7 +6,7 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:54:30 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/23 14:13:46 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/25 14:45:13 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ void	init_textures(t_textures *textures)
 	textures->south_path = NULL;
 	textures->east_path = NULL;
 	textures->west_path = NULL;
-
 	textures->floor.r = -1;
 	textures->floor.g = -1;
 	textures->floor.b = -1;
-
 	textures->ceiling.r = -1;
 	textures->ceiling.g = -1;
 	textures->ceiling.b = -1;
@@ -55,7 +53,7 @@ char	*ft_str_doublepointer(char **s1, const char *s2)
 	str = (char *)ft_calloc((ft_strlen(*s1) + ft_strlen(s2)) + 1, sizeof(char));
 	if (!str)
 		return (NULL);
-	ft_strlcpy(str, *s1, ft_strlen(*s1) + 1); 
+	ft_strlcpy(str, *s1, ft_strlen(*s1) + 1);
 	ft_strlcat(str, s2, ft_strlen(*s1) + ft_strlen(s2) + 1);
 	free(*s1);
 	return (str);

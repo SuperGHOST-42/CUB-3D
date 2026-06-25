@@ -6,7 +6,7 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 16:22:35 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/23 14:19:23 by figomes          ###   ########.fr       */
+/*   Updated: 2026/06/25 14:44:56 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,17 @@ void	print_map(char **map)
 void	print_game(t_game *g)
 {
 	printf("\n===== GAME DEBUG =====\n");
-
 	print_textures(g->textures);
 	print_colors("FLOOR", g->textures->floor);
 	print_colors("CEILING", g->textures->ceiling);
 	print_map(g->full_map);
-
 	printf("======================\n");
 }
 
 int	main(int argc, char **argv)
 {
 	t_game	game;
-	
+
 	check_command(argc, argv[1]);
 	init_game(&game);
 	init_map(argv[1], &game);

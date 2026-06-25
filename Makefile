@@ -20,6 +20,7 @@ MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 SRC			= main.c \
 			  handle_colors.c \
 			  handle_textures.c \
+			  handle_textures2.c \
 			  validate_textures.c	\
 			  parse.c \
 			  moves.c \

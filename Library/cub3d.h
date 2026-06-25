@@ -101,5 +101,7 @@ t_error	validate_config(t_game *map);
 t_error	parse_rgb(char *value, t_colors *color, t_game	*game);
 t_error	handle_colors(char *line, char *token, t_game *map);
 t_error	handle_textures(char *line, char *token, t_textures *textures, t_game *game);
+void	free_rgb(char **rgb);
+t_error	parse_texture(char *line, t_game *map, int i);
 
 #endif
