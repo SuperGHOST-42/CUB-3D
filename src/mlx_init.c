@@ -6,7 +6,7 @@
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 17:49:07 by arpereir          #+#    #+#             */
-/*   Updated: 2026/07/01 00:41:58 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/07/01 02:22:57 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ static int	key_press(int keycode, t_game *game)
 	else if (keycode == XK_d)
 		move_right(game);
 	else if (keycode == XK_Left)
-		rotate_left(game);
-	else if (keycode == XK_Right)
 		rotate_right(game);
+	else if (keycode == XK_Right)
+		rotate_left(game);
 	render_frame(game);
 	return (0);
 }
