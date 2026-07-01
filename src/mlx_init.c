@@ -84,7 +84,7 @@ void	init_mlx(t_game *game)
 	if (!game->img.addr)
 		exit_mlx_error("Error\n mlx_get_data_addr failed\n");
 	render_frame(game);
-	// mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
-	// mlx_hook(game->win, DestroyNotify, StructureNotifyMask, close_game, game);
-	// mlx_loop(game->mlx);
+	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
+	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, close_game, game);
+	mlx_loop(game->mlx);
 }

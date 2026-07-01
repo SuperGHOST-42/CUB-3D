@@ -5,7 +5,7 @@
 NAME		= cub3D
 
 CC			= cc
-CFLAGS		= -Wall -Wextra #-Werror
+CFLAGS		= -std=gnu17 -Wall -Wextra -Werror
 
 SRC_DIR		= src
 OBJ_DIR		= obj
