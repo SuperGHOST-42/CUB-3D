@@ -6,14 +6,52 @@
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 17:49:07 by arpereir          #+#    #+#             */
-/*   Updated: 2026/06/09 12:50:44 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/07/01 00:41:58 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	render_loop()
+static int	close_game(t_game *game)
 {
+	if (game->img.img)
+		mlx_destroy_image(game->mlx, game->img.img);
+	if (game->win)
+		mlx_destroy_window(game->mlx, game->win);
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+	clean_game(game);
+	exit(0);
+	return (0);
+}
+
+static int	render_frame(t_game *game)
+{
+	raycast(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img.img, 0, 0);
+	return (0);
+}
+
+static int	key_press(int keycode, t_game *game)
+{
+	if (keycode == XK_Escape)
+		close_game(game);
+	else if (keycode == XK_w)
+		move_forward(game);
+	else if (keycode == XK_s)
+		move_backward(game);
+	else if (keycode == XK_a)
+		move_left(game);
+	else if (keycode == XK_d)
+		move_right(game);
+	else if (keycode == XK_Left)
+		rotate_left(game);
+	else if (keycode == XK_Right)
+		rotate_right(game);
+	render_frame(game);
 	return (0);
 }
 
@@ -45,9 +83,8 @@ void	init_mlx(t_game *game)
 			&game->img.endian);
 	if (!game->img.addr)
 		exit_mlx_error("Error\n mlx_get_data_addr failed\n");
-	raycast(game);
-	mlx_put_image_to_window(game->mlx, game->win,
-		game->img.img, 0, 0);
-	mlx_loop_hook(game->mlx, render_loop, game);
-	mlx_loop(game->mlx);
+	render_frame(game);
+	// mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
+	// mlx_hook(game->win, DestroyNotify, StructureNotifyMask, close_game, game);
+	// mlx_loop(game->mlx);
 }

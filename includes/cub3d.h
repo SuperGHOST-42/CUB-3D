@@ -101,13 +101,13 @@ typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
-	t_img		img;
 	char		**full_map;
+	t_img		img;
+	t_player	player;
 	char		*map_path;
 	int			map_height;
 	int			players;
 	int			map_started;
-	t_player	player;
 	t_bool		map_alloc;
 	t_textures	*textures;
 	int			alloc_tex;
@@ -142,5 +142,6 @@ void	rotate_right(t_game *game);
 void	raycast(t_game *game);
 void	draw_column(t_game *game, t_ray *ray, int x);
 void	init_mlx(t_game *game);
+void	init_debug_map(t_game *game);
 
 #endif
