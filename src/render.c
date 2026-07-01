@@ -22,15 +22,24 @@ void	put_pixel(t_img *img, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+static int	rgb_to_int(t_colors color)
+{
+	return ((color.r << 16) | (color.g << 8) | color.b);
+}
+
 void	draw_column(t_game *game, t_ray *ray, int x)
 {
 	int	y;
 	int	color;
+	int	ceiling_color;
+	int	floor_color;
 
 	y = 0;
+	ceiling_color = rgb_to_int(game->textures->ceiling);
+	floor_color = rgb_to_int(game->textures->floor);
 	while (y < ray->draw_start)
 	{
-		put_pixel(&game->img, x, y, CEILING_COLOR);
+		put_pixel(&game->img, x, y, ceiling_color);
 		y++;
 	}
 	color = WALL_COLOR;
@@ -43,7 +52,7 @@ void	draw_column(t_game *game, t_ray *ray, int x)
 	}
 	while (y < SCREEN_H)
 	{
-		put_pixel(&game->img, x, y, FLOOR_COLOR);
+		put_pixel(&game->img, x, y, floor_color);
 		y++;
 	}
 }
