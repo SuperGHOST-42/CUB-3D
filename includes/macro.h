@@ -6,7 +6,7 @@
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 23:36:19 by arpereir          #+#    #+#             */
-/*   Updated: 2026/05/15 17:42:47 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/07/01 03:48:34 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 #define SPEED 0.2
 #define ROT_SPEED 0.1
 
-#define SCREEN_W 640
-#define SCREEN_H 480
+#define SCREEN_W 1200
+#define SCREEN_H 800
 
 #define CEILING_COLOR 0x87CEEB
 #define FLOOR_COLOR 0x444444
