@@ -16,6 +16,14 @@ static int	close_game(t_game *game)
 {
 	if (game->img.img)
 		mlx_destroy_image(game->mlx, game->img.img);
+	if (game->north.img)
+		mlx_destroy_image(game->mlx, game->north.img);
+	if (game->south.img)
+		mlx_destroy_image(game->mlx, game->south.img);
+	if (game->east.img)
+		mlx_destroy_image(game->mlx, game->east.img);
+	if (game->west.img)
+		mlx_destroy_image(game->mlx, game->west.img);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
 	if (game->mlx)
@@ -61,6 +69,26 @@ static void	exit_mlx_error(char *message)
 	exit(1);
 }
 
+static void	load_texture(t_game *game, t_img *texture, char *path)
+{
+	texture->img = mlx_xpm_file_to_image(game->mlx, path,
+			&texture->width, &texture->height);
+	if (!texture->img)
+		exit_mlx_error("Error\n texture load failed\n");
+	texture->addr = mlx_get_data_addr(texture->img, &texture->bpp,
+			&texture->line_len, &texture->endian);
+	if (!texture->addr)
+		exit_mlx_error("Error\n texture data failed\n");
+}
+
+static void	load_textures(t_game *game)
+{
+	load_texture(game, &game->north, game->textures->north_path);
+	load_texture(game, &game->south, game->textures->south_path);
+	load_texture(game, &game->east, game->textures->east_path);
+	load_texture(game, &game->west, game->textures->west_path);
+}
+
 void	init_mlx(t_game *game)
 {
 	game->mlx = mlx_init();
@@ -83,6 +111,7 @@ void	init_mlx(t_game *game)
 			&game->img.endian);
 	if (!game->img.addr)
 		exit_mlx_error("Error\n mlx_get_data_addr failed\n");
+	load_textures(game);
 	render_frame(game);
 	mlx_hook(game->win, KeyPress, KeyPressMask, key_press, game);
 	mlx_hook(game->win, DestroyNotify, StructureNotifyMask, close_game, game);

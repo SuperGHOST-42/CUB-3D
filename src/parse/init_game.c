@@ -26,16 +26,27 @@ void	init_textures(t_textures *textures)
 	textures->ceiling.b = -1;
 }
 
+static void	init_img(t_img *img)
+{
+	img->img = NULL;
+	img->addr = NULL;
+	img->bpp = 0;
+	img->line_len = 0;
+	img->endian = 0;
+	img->width = 0;
+	img->height = 0;
+}
+
 void	init_game(t_game *game)
 {
 	game->mlx = NULL;
 	game->alloc_tex = 0;
 	game->win = NULL;
-	game->img.img = NULL;
-	game->img.addr = NULL;
-	game->img.bpp = 0;
-	game->img.line_len = 0;
-	game->img.endian = 0;
+	init_img(&game->img);
+	init_img(&game->north);
+	init_img(&game->south);
+	init_img(&game->east);
+	init_img(&game->west);
 	game->full_map = NULL;
 	game->map_path = NULL;
 	game->players = 0;

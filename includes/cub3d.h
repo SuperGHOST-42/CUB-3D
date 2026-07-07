@@ -64,6 +64,8 @@ typedef struct s_img
 	int		bpp;
 	int		line_len;
 	int		endian;
+	int		width;
+	int		height;
 }	t_img;
 
 typedef struct s_ray
@@ -103,6 +105,10 @@ typedef struct s_game
 	void		*win;
 	char		**full_map;
 	t_img		img;
+	t_img		north;
+	t_img		south;
+	t_img		east;
+	t_img		west;
 	t_player	player;
 	char		*map_path;
 	int			map_height;
