@@ -1,28 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 16:22:35 by figomes           #+#    #+#             */
-/*   Updated: 2026/07/01 01:25:02 by arpereir         ###   ########.fr       */
+/*   Created: 2025/01/23 14:14:11 by arpereir          #+#    #+#             */
+/*   Updated: 2025/04/24 15:44:34 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_isalpha(int c)
 {
-	t_game	game;
-	
-	check_command(argc, argv[1]);
-	init_game(&game);
-	init_map(argv[1], &game);
-	validate_config(&game);
-	//print_game(&game);
-	///// GHOST //////
-	init_player(&game);
-	init_mlx(&game);
-	return (0);
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
 }

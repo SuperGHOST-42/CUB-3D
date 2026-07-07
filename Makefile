@@ -1,19 +1,23 @@
-NAME       = cub3d
-CC         = cc
+# **************************************************************************** #
+#                                VARIABLES                                     #
+# **************************************************************************** #
 
-CFLAGS     = -Wall -Wextra -Werror -g
+NAME		= cub3D
 
-SRC_DIR    = ./src
-OBJ_DIR    = ./obj
+CC			= cc
+CFLAGS		= -std=gnu17 -Wall -Wextra -Werror
 
-LIBFT_DIR  = ./Libft
-LIBFT      = -L$(LIBFT_DIR) -lft
+SRC_DIR		= src
+OBJ_DIR		= obj
+INC_DIR		= includes
 
-MLX_DIR    = ./minilibx-linux
-MLX_FLAGS  = -L$(MLX_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
+LIBFT_DIR	= Libft
+LIBFT		= $(LIBFT_DIR)/libft.a
 
-INCLUDES   = -I./include -I$(LIBFT_DIR) -I$(MLX_DIR)
+MLX_DIR		= includes/minilibx-linux
+MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
+<<<<<<< HEAD
 SRCS =  src/main.c 		\
         src/init_game.c \
 		src/free.c		\
@@ -21,29 +25,65 @@ SRCS =  src/main.c 		\
 		src/handle_textures.c \
 		src/handle_colors.c \
 		src/validate_map.c
+=======
+SRC			= main.c \
+			  parse/check_map.c \
+			  parse/free.c \
+			  parse/handle_colors.c \
+			  parse/handle_textures.c \
+			  parse/handle_textures2.c \
+			  parse/init_game.c \
+			  parse/map_init.c \
+			  parse/validate_textures.c	\
+			  parse/print.c \
+			  player_init.c \
+			  moves.c \
+			  raycast.c \
+			  render.c \
+			  mlx_init.c
+>>>>>>> main
 
-OBJ = $(addprefix $(OBJ_DIR)/,$(notdir $(SRCS:.c=.o)))
+SRCS		= $(addprefix $(SRC_DIR)/, $(SRC))
+OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
-all: $(OBJ_DIR) $(NAME)
+# **************************************************************************** #
+#                                RULES                                         #
+# **************************************************************************** #
 
-$(OBJ_DIR):
-	mkdir -p $(OBJ_DIR)
+all: $(NAME)
 
-$(NAME): $(OBJ)
-	make -C $(LIBFT_DIR)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT)
+	$(MAKE) -C $(MLX_DIR)
+	$(CC) $(CFLAGS) $(OBJS) \
+	-I$(INC_DIR) \
+	-L$(LIBFT_DIR) -lft \
+	$(MLX_FLAGS) \
+	-o $(NAME)
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) \
+	-I$(INC_DIR) \
+	-I$(LIBFT_DIR) \
+	-I$(MLX_DIR) \
+	-c $< -o $@
 
 clean:
 	rm -rf $(OBJ_DIR)
-	make clean -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_DIR) clean
+	$(MAKE) -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
-	make fclean -C $(LIBFT_DIR)
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
+
+# **************************************************************************** #
+#                                PHONY                                         #
+# **************************************************************************** #
 
 .PHONY: all clean fclean re

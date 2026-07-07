@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 16:22:35 by figomes           #+#    #+#             */
-/*   Updated: 2026/07/01 01:25:02 by arpereir         ###   ########.fr       */
+/*   Created: 2025/02/18 20:09:49 by arpereir          #+#    #+#             */
+/*   Updated: 2025/04/26 16:32:49 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strchr(const char *s, int c)
 {
-	t_game	game;
-	
-	check_command(argc, argv[1]);
-	init_game(&game);
-	init_map(argv[1], &game);
-	validate_config(&game);
-	//print_game(&game);
-	///// GHOST //////
-	init_player(&game);
-	init_mlx(&game);
+	char	ch;
+
+	ch = (char)c;
+	while (*s)
+	{
+		if (*s == ch)
+			return ((char *)s);
+		s++;
+	}
+	if (ch == '\0')
+		return ((char *)s);
+	return (NULL);
+}
+/*
+int	main(void)
+{
+	char	s[] = "Hello";		
+
+	printf("%s", ft_strchr(s, 'l'));
 	return (0);
 }
+*/

@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 16:22:35 by figomes           #+#    #+#             */
-/*   Updated: 2026/07/01 01:25:02 by arpereir         ###   ########.fr       */
+/*   Created: 2025/01/25 10:14:39 by arpereir          #+#    #+#             */
+/*   Updated: 2025/04/26 16:50:31 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_strncmp(char const *s1, char const *s2, size_t n)
 {
-	t_game	game;
-	
-	check_command(argc, argv[1]);
-	init_game(&game);
-	init_map(argv[1], &game);
-	validate_config(&game);
-	//print_game(&game);
-	///// GHOST //////
-	init_player(&game);
-	init_mlx(&game);
+	size_t	i;
+
+	i = 0;
+	while ((*s1 || *s2) && i < n)
+	{
+		if (*s1 != *s2)
+			return ((unsigned char)*s1 - (unsigned char)*s2);
+		s1++;
+		s2++;
+		i++;
+	}
 	return (0);
 }

@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 16:22:35 by figomes           #+#    #+#             */
-/*   Updated: 2026/07/01 01:25:02 by arpereir         ###   ########.fr       */
+/*   Created: 2025/02/16 19:23:29 by arpereir          #+#    #+#             */
+/*   Updated: 2025/04/24 15:41:21 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_atoi(const char *str)
 {
-	t_game	game;
-	
-	check_command(argc, argv[1]);
-	init_game(&game);
-	init_map(argv[1], &game);
-	validate_config(&game);
-	//print_game(&game);
-	///// GHOST //////
-	init_player(&game);
-	init_mlx(&game);
-	return (0);
+	int	i;
+	int	sign;
+	int	result;
+
+	i = 0;
+	sign = 1;
+	result = 0;
+	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '+')
+		i++;
+	else if (str[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		result = result * 10 + str[i] - '0';
+		i++;
+	}
+	return (sign * result);
 }

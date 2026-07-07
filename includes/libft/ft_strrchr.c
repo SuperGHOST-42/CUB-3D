@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 16:22:35 by figomes           #+#    #+#             */
-/*   Updated: 2026/07/01 01:25:02 by arpereir         ###   ########.fr       */
+/*   Created: 2025/04/25 01:06:30 by arpereir          #+#    #+#             */
+/*   Updated: 2025/04/26 17:44:20 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+char	*ft_strrchr(const char *s, int c)
 {
-	t_game	game;
-	
-	check_command(argc, argv[1]);
-	init_game(&game);
-	init_map(argv[1], &game);
-	validate_config(&game);
-	//print_game(&game);
-	///// GHOST //////
-	init_player(&game);
-	init_mlx(&game);
-	return (0);
+	char	*occ;
+	char	ch;
+
+	occ = NULL;
+	ch = (char)c;
+	if (ch == '\0')
+		return ((char *)s + ft_strlen(s));
+	while (*s)
+	{
+		if (*s == ch)
+			occ = (char *)s;
+		s++;
+	}
+	return (occ);
 }

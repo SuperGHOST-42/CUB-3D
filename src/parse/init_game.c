@@ -6,11 +6,15 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:54:30 by figomes           #+#    #+#             */
+<<<<<<< HEAD:src/init_game.c
 /*   Updated: 2026/06/16 14:32:22 by figomes          ###   ########.fr       */
+=======
+/*   Updated: 2026/06/25 14:45:13 by figomes          ###   ########.fr       */
+>>>>>>> main:src/parse/init_game.c
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../Library/cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	init_textures(t_textures *textures)
 {
@@ -18,11 +22,9 @@ void	init_textures(t_textures *textures)
 	textures->south_path = NULL;
 	textures->east_path = NULL;
 	textures->west_path = NULL;
-
 	textures->floor.r = -1;
 	textures->floor.g = -1;
 	textures->floor.b = -1;
-
 	textures->ceiling.r = -1;
 	textures->ceiling.g = -1;
 	textures->ceiling.b = -1;
@@ -33,11 +35,24 @@ void	init_game(t_game *game)
 	game->mlx = NULL;
 	game->alloc_tex = 0;
 	game->win = NULL;
+	game->img.img = NULL;
+	game->img.addr = NULL;
+	game->img.bpp = 0;
+	game->img.line_len = 0;
+	game->img.endian = 0;
 	game->full_map = NULL;
 	game->map_path = NULL;
 	game->players = 0;
+	game->map_started = 0;
+	game->player.x = 0;
+	game->player.y = 0;
+	game->player.dir_x = 0;
+	game->player.dir_y = 0;
+	game->player.plane_x = 0;
+	game->player.plane_y = 0;
 	game->map_alloc = FALSE;
 	game->textures = NULL;
+	game->map_height = 0;
 	game->textures = malloc(sizeof(t_textures));
 	if (!game->textures)
 		return ;
@@ -53,7 +68,7 @@ char	*ft_str_doublepointer(char **s1, const char *s2)
 	str = (char *)ft_calloc((ft_strlen(*s1) + ft_strlen(s2)) + 1, sizeof(char));
 	if (!str)
 		return (NULL);
-	ft_strlcpy(str, *s1, ft_strlen(*s1) + 1); 
+	ft_strlcpy(str, *s1, ft_strlen(*s1) + 1);
 	ft_strlcat(str, s2, ft_strlen(*s1) + ft_strlen(s2) + 1);
 	free(*s1);
 	return (str);
