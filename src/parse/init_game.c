@@ -6,11 +6,7 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 14:54:30 by figomes           #+#    #+#             */
-<<<<<<< HEAD:src/init_game.c
-/*   Updated: 2026/06/16 14:32:22 by figomes          ###   ########.fr       */
-=======
-/*   Updated: 2026/06/25 14:45:13 by figomes          ###   ########.fr       */
->>>>>>> main:src/parse/init_game.c
+/*   Updated: 2026/07/07 13:45:26 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

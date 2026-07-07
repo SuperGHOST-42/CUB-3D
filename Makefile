@@ -17,15 +17,6 @@ LIBFT		= $(LIBFT_DIR)/libft.a
 MLX_DIR		= includes/minilibx-linux
 MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
-<<<<<<< HEAD
-SRCS =  src/main.c 		\
-        src/init_game.c \
-		src/free.c		\
-        src/map_init.c \
-		src/handle_textures.c \
-		src/handle_colors.c \
-		src/validate_map.c
-=======
 SRC			= main.c \
 			  parse/check_map.c \
 			  parse/free.c \
@@ -41,7 +32,6 @@ SRC			= main.c \
 			  raycast.c \
 			  render.c \
 			  mlx_init.c
->>>>>>> main
 
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC))
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))

@@ -105,6 +105,7 @@ typedef struct s_game
 	t_img		img;
 	t_player	player;
 	char		*map_path;
+	char		player_or;
 	int			map_height;
 	int			players;
 	int			map_started;
@@ -125,6 +126,7 @@ t_error	parse_rgb(char *value, t_colors *color, t_game *game);
 t_error	handle_colors(char *line, char *token, t_game *map);
 t_error	handle_textures(char *line, char *token, t_textures *textures,
 			t_game *game);
+void	trim_end_empty_lines(char **map);
 void	free_rgb(char **rgb);
 t_error	parse_texture(char *line, t_game *map, int i);
 void	print_textures(t_textures *t);
@@ -143,5 +145,6 @@ void	raycast(t_game *game);
 void	draw_column(t_game *game, t_ray *ray, int x);
 void	init_mlx(t_game *game);
 void	init_debug_map(t_game *game);
-
+int		has_empty_line_inside(t_game *game, char **map);
+void	validade_map(t_game *game);
 #endif
