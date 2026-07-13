@@ -19,6 +19,7 @@ MLX_FLAGS	= -L$(MLX_DIR) -lmlx -lXext -lX11 -lm -lz
 
 SRC			= main.c \
 			  parse/check_map.c \
+			  parse/check_map2.c \
 			  parse/free.c \
 			  parse/handle_colors.c \
 			  parse/handle_textures.c \

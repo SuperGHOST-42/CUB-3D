@@ -6,41 +6,11 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:23:46 by figomes           #+#    #+#             */
-/*   Updated: 2026/07/07 14:52:19 by figomes          ###   ########.fr       */
+/*   Updated: 2026/07/13 14:09:57 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-static int	is_empty_line(char *line)
-{
-	int	i;
-
-	if (!line)
-		return (1);
-	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	return (line[i] == '\0' || line[i] == '\n');
-}
-
-void	trim_end_empty_lines(char **map)
-{
-	int	last;
-
-	if (!map)
-		return ;
-	last = 0;
-	while (map[last])
-		last++;
-	last--;
-	while (last >= 0 && is_empty_line(map[last]))
-	{
-		free(map[last]);
-		map[last] = NULL;
-		last--;
-	}
-}
 
 int	has_empty_line_inside(t_game *game, char **map)
 {
@@ -92,8 +62,37 @@ int	check_map_chars(t_game *game)
 	return (0);
 }
 
+int	validate_line(t_game *game, char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j] == ' ')
+			j++;
+		if (map[i][j] != '1')
+			error_msg("Error, invalid map", game);
+		j = ft_strlen(map[i]) - 1;
+		if (map[i][j] == '\n')
+			j--;
+		while (j >= 0 && map[i][j] == ' ')
+			j--;
+		if (map[i][j] != '1')
+			error_msg("Error, invalid map", game);
+		i++;
+	}
+	return (0);
+}
+
 void	validade_map(t_game *game)
 {
-	has_empty_line_inside(game, game->full_map);
+	if (!game ->full_map)
+		error_msg("Map is NULL", game);
 	check_map_chars(game);
+	has_empty_line_inside(game, game->full_map);
+	validate_line(game, game->full_map);
+	validate_walls(game, game->full_map);
 }

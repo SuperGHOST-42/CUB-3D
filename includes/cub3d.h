@@ -147,4 +147,7 @@ void	init_mlx(t_game *game);
 void	init_debug_map(t_game *game);
 int		has_empty_line_inside(t_game *game, char **map);
 void	validade_map(t_game *game);
+int		validate_walls(t_game *game, char **map);
+int		is_empty_line(char *line);
+void	trim_end_empty_lines(char **map);
 #endif
