@@ -11,17 +11,18 @@
 /* ************************************************************************** */
 
 #ifndef MACRO_H
-#define MACRO_H
+# define MACRO_H
 
-#define SPEED 0.3
-#define ROT_SPEED 0.1
+# define SPEED 0.05
+# define ROT_SPEED 0.04
+# define PLAYER_RADIUS 0.15
 
-#define SCREEN_W 1200
-#define SCREEN_H 800
+# define SCREEN_W 1200
+# define SCREEN_H 800
 
-#define CEILING_COLOR 0x87CEEB
-#define FLOOR_COLOR 0x444444
-#define WALL_COLOR 0xFFFFFF
-#define WALL_DARK 0xAAAAAA
+# define CEILING_COLOR 0x87CEEB
+# define FLOOR_COLOR 0x444444
+# define WALL_COLOR 0xFFFFFF
+# define WALL_DARK 0xAAAAAA
 
-#endif
+# endif

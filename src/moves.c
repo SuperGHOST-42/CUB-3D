@@ -13,107 +13,67 @@
 #include "../includes/cub3d.h"
 #include "../includes/macro.h"
 
+int	is_wall(t_game *game, double x, double y)
+{
+	int	map_x;
+	int	map_y;
+
+	if (x < 0 || y < 0)
+		return (1);
+	map_x = (int)x;
+	map_y = (int)y;
+	if (map_y >= game->map_height || !game->full_map[map_y])
+		return (1);
+	if (map_x >= (int)ft_strlen(game->full_map[map_y]))
+		return (1);
+	return (game->full_map[map_y][map_x] != '0');
+}
+
 static int	can_move(t_game *game, double x, double y)
 {
-	if (game->full_map[(int)y][(int)x] == '1')
-		return (0);
-	return (1);
+	return (!is_wall(game, x - PLAYER_RADIUS, y - PLAYER_RADIUS)
+		&& !is_wall(game, x + PLAYER_RADIUS, y - PLAYER_RADIUS)
+		&& !is_wall(game, x - PLAYER_RADIUS, y + PLAYER_RADIUS)
+		&& !is_wall(game, x + PLAYER_RADIUS, y + PLAYER_RADIUS));
 }
 
-void	move_forward(t_game *game)
+void	move_player(t_game *game, int forward, int side)
 {
 	double	new_x;
 	double	new_y;
 	double	speed;
 
+	if (!forward && !side)
+		return ;
 	speed = SPEED;
-	new_x = game->player.x + game->player.dir_x * speed;
-	new_y = game->player.y + game->player.dir_y * speed;
+	if (forward && side)
+		speed *= 0.707106;
+	new_x = game->player.x + (game->player.dir_x * forward
+			- game->player.dir_y * side) * speed;
+	new_y = game->player.y + (game->player.dir_y * forward
+			+ game->player.dir_x * side) * speed;
 	if (can_move(game, new_x, game->player.y))
 		game->player.x = new_x;
 	if (can_move(game, game->player.x, new_y))
 		game->player.y = new_y;
 }
 
-void	move_backward(t_game *game)
+void	rotate_player(t_game *game, int direction)
 {
-	double	new_x;
-	double	new_y;
-	double	speed;
+	double	angle;
+	double	old_x;
 
-	speed = SPEED;
-	new_x = game->player.x - game->player.dir_x * speed;
-	new_y = game->player.y - game->player.dir_y * speed;
-	if (can_move(game, new_x, game->player.y))
-		game->player.x = new_x;
-	if (can_move(game, game->player.x, new_y))
-		game->player.y = new_y;
-}
-
-void	move_left(t_game *game)
-{
-	double	new_x;
-	double	new_y;
-	double	speed;
-
-	speed = SPEED;
-	new_x = game->player.x - (game->player.plane_x * speed);
-	new_y = game->player.y - (game->player.plane_y * speed);
-	if (can_move(game, new_x, game->player.y))
-		game->player.x = new_x;
-	if (can_move(game, game->player.x, new_y))
-		game->player.y = new_y;
-}
-
-void	move_right(t_game *game)
-{
-	double	new_x;
-	double	new_y;
-	double	speed;
-
-	speed = SPEED;
-	new_x = game->player.x + (game->player.plane_x * speed);
-	new_y = game->player.y + (game->player.plane_y * speed);
-	if (can_move(game, new_x, game->player.y))
-		game->player.x = new_x;
-	if (can_move(game, game->player.x, new_y))
-		game->player.y = new_y;
-}
-
-void	rotate_left(t_game *game)
-{
-	double	old_dir_x;
-	double	old_plane_x;
-	double	rot_speed;
-
-	rot_speed = ROT_SPEED;
-	old_dir_x = game->player.dir_x;
-	game->player.dir_x = game->player.dir_x * cos(rot_speed)
-		- game->player.dir_y * sin(rot_speed);
-	game->player.dir_y = old_dir_x * sin(rot_speed)
-		+ game->player.dir_y * cos(rot_speed);
-	old_plane_x = game->player.plane_x;
-	game->player.plane_x = game->player.plane_x * cos(rot_speed)
-		- game->player.plane_y * sin(rot_speed);
-	game->player.plane_y = old_plane_x * sin(rot_speed)
-		+ game->player.plane_y * cos(rot_speed);
-}
-
-void	rotate_right(t_game *game)
-{
-	double	old_dir_x;
-	double	old_plane_x;
-	double	rot_speed;
-
-	rot_speed = ROT_SPEED;
-	old_dir_x = game->player.dir_x;
-	game->player.dir_x = game->player.dir_x * cos(-rot_speed)
-		- game->player.dir_y * sin(-rot_speed);
-	game->player.dir_y = old_dir_x * sin(-rot_speed)
-		+ game->player.dir_y * cos(-rot_speed);
-	old_plane_x = game->player.plane_x;
-	game->player.plane_x = game->player.plane_x * cos(-rot_speed)
-		- game->player.plane_y * sin(-rot_speed);
-	game->player.plane_y = old_plane_x * sin(-rot_speed)
-		+ game->player.plane_y * cos(-rot_speed);
+	if (!direction)
+		return ;
+	angle = ROT_SPEED * direction;
+	old_x = game->player.dir_x;
+	game->player.dir_x = old_x * cos(angle)
+		- game->player.dir_y * sin(angle);
+	game->player.dir_y = old_x * sin(angle)
+		+ game->player.dir_y * cos(angle);
+	old_x = game->player.plane_x;
+	game->player.plane_x = old_x * cos(angle)
+		- game->player.plane_y * sin(angle);
+	game->player.plane_y = old_x * sin(angle)
+		+ game->player.plane_y * cos(angle);
 }

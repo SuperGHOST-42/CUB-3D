@@ -31,6 +31,9 @@ SRC			= main.c \
 			  moves.c \
 			  raycast.c \
 			  render.c \
+			  texture.c \
+			  input.c \
+			  mlx_cleanup.c \
 			  mlx_init.c
 
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC))
@@ -43,7 +46,7 @@ OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT)
-	$(MAKE) -C $(MLX_DIR)
+	$(MAKE) -C $(MLX_DIR) CFLAGS="-O3 -std=gnu17 -I.."
 	$(CC) $(CFLAGS) $(OBJS) \
 	-I$(INC_DIR) \
 	-L$(LIBFT_DIR) -lft \
@@ -64,7 +67,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 clean:
 	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean
-	$(MAKE) -C $(MLX_DIR) clean
+	$(MAKE) -C $(MLX_DIR) CFLAGS="-O3 -std=gnu17 -I.." clean
 
 fclean: clean
 	rm -f $(NAME)

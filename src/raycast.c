@@ -36,8 +36,7 @@ static void	init_dda(t_game *game, t_ray *ray)
 	if (ray->ray_dir_x < 0)
 	{
 		ray->step_x = -1;
-		ray->side_dist_x = (game->player.x - ray->map_x)
-			* ray->delta_dist_x;
+		ray->side_dist_x = (game->player.x - ray->map_x) * ray->delta_dist_x;
 	}
 	else
 	{
@@ -48,8 +47,7 @@ static void	init_dda(t_game *game, t_ray *ray)
 	if (ray->ray_dir_y < 0)
 	{
 		ray->step_y = -1;
-		ray->side_dist_y = (game->player.y - ray->map_y)
-			* ray->delta_dist_y;
+		ray->side_dist_y = (game->player.y - ray->map_y) * ray->delta_dist_y;
 	}
 	else
 	{
@@ -76,7 +74,7 @@ static void	perform_dda(t_game *game, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (game->full_map[ray->map_y][ray->map_x] == '1')
+		if (is_wall(game, ray->map_x, ray->map_y))
 			ray->hit = 1;
 	}
 }

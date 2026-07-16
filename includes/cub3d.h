@@ -89,6 +89,16 @@ typedef struct s_ray
 	int		draw_end;
 }	t_ray;
 
+typedef struct s_keys
+{
+	int	w;
+	int	s;
+	int	a;
+	int	d;
+	int	left;
+	int	right;
+}	t_keys;
+
 typedef struct s_textures
 {
 	char		*north_path;
@@ -110,6 +120,8 @@ typedef struct s_game
 	t_img		east;
 	t_img		west;
 	t_player	player;
+	t_keys		keys;
+	long		last_frame_ms;
 	char		*map_path;
 	int			map_height;
 	int			players;
@@ -138,16 +150,18 @@ void	print_colors(char *name, t_colors c);
 void	print_map(char **map);
 void	print_game(t_game *g);
 void	init_player(t_game *game);
-char	**dup_map(char **src);
-void	move_forward(t_game *game);
-void	move_backward(t_game *game);
-void	move_left(t_game *game);
-void	move_right(t_game *game);
-void	rotate_left(t_game *game);
-void	rotate_right(t_game *game);
+int		is_wall(t_game *game, double x, double y);
+void	move_player(t_game *game, int forward, int side);
+void	rotate_player(t_game *game, int direction);
 void	raycast(t_game *game);
+void	put_pixel(t_img *img, int x, int y, int color);
+void	draw_textured_wall(t_game *game, t_ray *ray, int x);
 void	draw_column(t_game *game, t_ray *ray, int x);
+int		key_press(int keycode, t_game *game);
+int		key_release(int keycode, t_game *game);
+int		render_frame(t_game *game);
+int		close_game(t_game *game);
+void	exit_mlx_error(t_game *game, char *message);
 void	init_mlx(t_game *game);
-void	init_debug_map(t_game *game);
 
-#endif
+# endif
