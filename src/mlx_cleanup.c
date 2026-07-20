@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_cleanup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 00:00:00 by arpereir          #+#    #+#             */
-/*   Updated: 2026/07/16 00:00:00 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/07/20 14:35:53 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
