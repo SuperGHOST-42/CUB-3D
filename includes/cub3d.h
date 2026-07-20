@@ -123,6 +123,7 @@ typedef struct s_game
 	t_keys		keys;
 	long		last_frame_ms;
 	char		*map_path;
+	char		player_or;
 	int			map_height;
 	int			players;
 	int			map_started;
@@ -143,6 +144,7 @@ t_error	parse_rgb(char *value, t_colors *color, t_game *game);
 t_error	handle_colors(char *line, char *token, t_game *map);
 t_error	handle_textures(char *line, char *token, t_textures *textures,
 			t_game *game);
+void	trim_end_empty_lines(char **map);
 void	free_rgb(char **rgb);
 t_error	parse_texture(char *line, t_game *map, int i);
 void	print_textures(t_textures *t);
@@ -163,5 +165,10 @@ int		render_frame(t_game *game);
 int		close_game(t_game *game);
 void	exit_mlx_error(t_game *game, char *message);
 void	init_mlx(t_game *game);
-
-# endif
+void	init_debug_map(t_game *game);
+int		has_empty_line_inside(t_game *game, char **map);
+void	validade_map(t_game *game);
+int		validate_walls(t_game *game, char **map);
+int		is_empty_line(char *line);
+void	trim_end_empty_lines(char **map);
+#endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:24:26 by figomes           #+#    #+#             */
-/*   Updated: 2026/07/01 00:49:13 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/07/13 14:09:33 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	init_map(char *argv, t_game *map)
 		if (!line_temp)
 			break ;
 		sanitize_line(line_temp);
-		//printf("RAW LINE: [%s]\n", line_temp);
 		if (map->alloc_tex < 6)
 		{
 			if (line_temp[0] == '\0')
@@ -93,7 +92,6 @@ void	init_map(char *argv, t_game *map)
 			free(line_temp);
 			print_error(err, map);
 		}
-
 		free(line_temp);
 	}
 	close(map_fd);
