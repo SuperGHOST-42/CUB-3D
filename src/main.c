@@ -21,11 +21,11 @@ int	main(int argc, char **argv)
 	init_map(argv[1], &game);
 	validate_config(&game);
 	trim_end_empty_lines(game.full_map);
-	print_game(&game);
+	//print_game(&game);
 	validade_map(&game);
 	///// GHOST //////
-	//init_player(&game);
-	//init_mlx(&game);
+	init_player(&game);
+	init_mlx(&game);
 	clean_game(&game);
 	return (0);
 }
