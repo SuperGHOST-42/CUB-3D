@@ -6,7 +6,7 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 16:24:26 by figomes           #+#    #+#             */
-/*   Updated: 2026/07/13 14:09:33 by figomes          ###   ########.fr       */
+/*   Updated: 2026/07/27 14:13:11 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,50 +49,56 @@ void	sanitize_line(char *line)
 		line[i - 1] = '\0';
 }
 
+static t_error	handle_line(t_game *map, char *line)
+{
+	if (map->alloc_tex < 6)
+	{
+		if (line[0] == '\0')
+			return (SUCCESS);
+		return (parse_texture(line, map, 0));
+	}
+	if (!map->map_started)
+	{
+		if (line[0] == '\0')
+			return (SUCCESS);
+		map->map_started = 1;
+	}
+	return (add_map_line(map, line));
+}
+
+static void	check_error(t_error err, int fd, char *line, t_game *map)
+{
+	if (err != SUCCESS)
+	{
+		close(fd);
+		free(line);
+		print_error(err, map);
+	}
+}
+
 void	init_map(char *argv, t_game *map)
 {
-	char	*line_temp;
-	int		map_fd;
+	char	*line;
+	int		fd;
 	t_error	err;
 
-	err = SUCCESS;
-	map_fd = open(argv, O_RDONLY);
-	if (map_fd == -1)
+	fd = open(argv, O_RDONLY);
+	if (fd == -1)
 		error_msg("The Map couldn't be opened\n", map);
 	while (1)
 	{
-		line_temp = get_next_line(map_fd);
-		if (!line_temp)
+		line = get_next_line(fd);
+		if (!line)
 			break ;
-		sanitize_line(line_temp);
-		if (map->alloc_tex < 6)
+		sanitize_line(line);
+		err = handle_line(map, line);
+		if (err == SUCCESS && line[0] == '\0')
 		{
-			if (line_temp[0] == '\0')
-			{
-				free(line_temp);
-				continue ;
-			}
-			err = parse_texture(line_temp, map, 0);
+			free(line);
+			continue ;
 		}
-		else if (!map->map_started)
-		{
-			if (line_temp[0] == '\0')
-			{
-				free(line_temp);
-				continue ;
-			}
-			map->map_started = 1;
-			err = add_map_line(map, line_temp);
-		}
-		else
-			err = add_map_line(map, line_temp);
-		if (err != SUCCESS)
-		{
-			close(map_fd);
-			free(line_temp);
-			print_error(err, map);
-		}
-		free(line_temp);
+		check_error(err, fd, line, map);
+		free(line);
 	}
-	close(map_fd);
+	close(fd);
 }

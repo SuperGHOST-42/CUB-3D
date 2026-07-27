@@ -6,7 +6,7 @@
 /*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/11 15:23:14 by figomes           #+#    #+#             */
-/*   Updated: 2026/07/20 14:36:08 by figomes          ###   ########.fr       */
+/*   Updated: 2026/07/27 14:13:46 by figomes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,19 @@ void	free_rgb(char **rgb)
 	while (rgb[i])
 		free(rgb[i++]);
 	free(rgb);
+}
+
+char	*ft_str_doublepointer(char **s1, const char *s2)
+{
+	char	*str;
+
+	if (!*s1 || !s2)
+		return (NULL);
+	str = (char *)ft_calloc((ft_strlen(*s1) + ft_strlen(s2)) + 1, sizeof(char));
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, *s1, ft_strlen(*s1) + 1);
+	ft_strlcat(str, s2, ft_strlen(*s1) + ft_strlen(s2) + 1);
+	free(*s1);
+	return (str);
 }
