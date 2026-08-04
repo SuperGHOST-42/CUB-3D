@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 16:22:35 by figomes           #+#    #+#             */
-/*   Updated: 2026/07/20 14:35:19 by figomes          ###   ########.fr       */
+/*   Updated: 2026/08/04 19:37:04 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int	main(int argc, char **argv)
 	init_map(argv[1], &game);
 	validate_config(&game);
 	trim_end_empty_lines(game.full_map);
-	//print_game(&game);
 	validade_map(&game);
-	///// GHOST //////
 	init_player(&game);
 	init_mlx(&game);
 	clean_game(&game);

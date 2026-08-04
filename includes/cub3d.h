@@ -165,7 +165,6 @@ int		render_frame(t_game *game);
 int		close_game(t_game *game);
 void	exit_mlx_error(t_game *game, char *message);
 void	init_mlx(t_game *game);
-void	init_debug_map(t_game *game);
 int		has_empty_line_inside(t_game *game, char **map);
 void	validade_map(t_game *game);
 int		validate_walls(t_game *game, char **map);
