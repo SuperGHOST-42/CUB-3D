@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   check_map2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/13 14:06:07 by figomes           #+#    #+#             */
-/*   Updated: 2026/07/13 14:09:40 by figomes          ###   ########.fr       */
+/*   Updated: 2026/08/04 21:47:46 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-//devolve o carácter numa posição ou ' ' se a posição estiver fora do mapa.
 static char	get_tile(char **map, int y, int x)
 {
 	if (y < 0 || map[y] == NULL)

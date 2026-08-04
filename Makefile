@@ -27,7 +27,6 @@ SRC			= main.c \
 			  parse/init_game.c \
 			  parse/map_init.c \
 			  parse/validate_textures.c	\
-			  parse/print.c \
 			  player_init.c \
 			  moves.c \
 			  raycast.c \
