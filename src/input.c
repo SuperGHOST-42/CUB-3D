@@ -6,7 +6,7 @@
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 00:00:00 by arpereir          #+#    #+#             */
-/*   Updated: 2026/08/04 22:13:52 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/08/05 03:51:45 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ int	render_frame(t_game *game)
 	gettimeofday(&time, NULL);
 	now = time.tv_sec * 1000L + time.tv_usec / 1000L;
 	if (now - game->last_frame_ms < 16)
-	{
-		usleep(1000);
 		return (0);
-	}
 	game->last_frame_ms = now;
 	move_player(game, game->keys.w - game->keys.s,
 		game->keys.d - game->keys.a);

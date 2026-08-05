@@ -6,7 +6,7 @@
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/03 19:00:29 by arpereir          #+#    #+#             */
-/*   Updated: 2026/05/15 17:06:01 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/08/05 03:24:31 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	move_player(t_game *game, int forward, int side)
 	double	new_y;
 	double	speed;
 
-	if (!forward && !side)
+	if (forward == 0 && side == 0)
 		return ;
 	speed = SPEED;
 	if (forward && side)

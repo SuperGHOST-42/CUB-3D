@@ -6,7 +6,7 @@
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/16 00:00:00 by arpereir          #+#    #+#             */
-/*   Updated: 2026/08/05 16:18:02 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/08/05 01:55:29 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,22 @@ static void	set_player_direction(t_game *game, char direction)
 	if (direction == 'N')
 	{
 		game->player.dir_y = -1;
-		game->player.plane_x = 0.66;
+		game->player.plane_x = 1.66;
 	}
 	else if (direction == 'S')
 	{
 		game->player.dir_y = 1;
-		game->player.plane_x = -0.66;
+		game->player.plane_x = -1.66;
 	}
 	else if (direction == 'W')
 	{
 		game->player.dir_x = -1;
-		game->player.plane_y = -0.66;
+		game->player.plane_y = -1.66;
 	}
 	else if (direction == 'E')
 	{
 		game->player.dir_x = 1;
-		game->player.plane_y = 0.66;
+		game->player.plane_y = 1.66;
 	}
 }
 
