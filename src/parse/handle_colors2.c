@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   handle_colors2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/27 16:22:35 by figomes           #+#    #+#             */
-/*   Updated: 2026/08/05 17:10:31 by arpereir         ###   ########.fr       */
+/*   Created: 2026/08/05 16:56:52 by arpereir          #+#    #+#             */
+/*   Updated: 2026/08/05 17:27:54 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
-int	main(int argc, char **argv)
+int	validate_commas(char *str)
 {
-	t_game	game;
+	int	i;
+	int	commas;
 
-	check_command(argc, argv[1]);
-	init_game(&game);
-	init_map(argv[1], &game);
-	validate_config(&game);
-	trim_end_empty_lines(game.full_map);
-	validade_map(&game);
-	init_player(&game);
-	init_mlx(&game);
-	clean_game(&game);
-	return (0);
+	i = 0;
+	commas = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			commas++;
+		if (str[i] == ',' && str[i + 1] == ',')
+			return (0);
+		i++;
+	}
+	if (commas != 2)
+		return (0);
+	return (1);
 }

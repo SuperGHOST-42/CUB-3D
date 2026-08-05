@@ -22,6 +22,7 @@ SRC			= main.c \
 			  parse/check_map2.c \
 			  parse/free.c \
 			  parse/handle_colors.c \
+			  parse/handle_colors2.c \
 			  parse/handle_textures.c \
 			  parse/handle_textures2.c \
 			  parse/init_game.c \

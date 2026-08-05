@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_colors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: figomes <figomes@student.42lisboa.com>     +#+  +:+       +#+        */
+/*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/16 14:14:55 by figomes           #+#    #+#             */
-/*   Updated: 2026/06/25 14:43:45 by figomes          ###   ########.fr       */
+/*   Updated: 2026/08/05 17:26:52 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ t_error	parse_rgb(char *value, t_colors *color, t_game *game)
 	char	**rgb;
 	int		i;
 
+	if (validate_commas(value) == 0)
+		return (ERR_INVALID_FORMAT);
 	rgb = ft_split(value, ',');
 	if (!rgb)
 		return (ERR_MALLOC);
@@ -42,9 +44,9 @@ t_error	parse_rgb(char *value, t_colors *color, t_game *game)
 	if (i != 3 || !is_valid_number(rgb[0])
 		|| !is_valid_number(rgb[1]) || !is_valid_number(rgb[2]))
 		return (free_rgb(rgb), ERR_INVALID_FORMAT);
-	color->r = ft_atoi(rgb[0]);
-	color->g = ft_atoi(rgb[1]);
-	color->b = ft_atoi(rgb[2]);
+	color->r = ft_atoll(rgb[0]);
+	color->g = ft_atoll(rgb[1]);
+	color->b = ft_atoll(rgb[2]);
 	game->alloc_tex++;
 	if (color->r < 0 || color->r > 255
 		|| color->g < 0 || color->g > 255

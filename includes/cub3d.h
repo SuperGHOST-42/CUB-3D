@@ -6,7 +6,7 @@
 /*   By: arpereir <arpereir@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/08/05 14:30:00 by arpereir          #+#    #+#             */
-/*   Updated: 2026/08/05 14:30:00 by arpereir         ###   ########.fr       */
+/*   Updated: 2026/08/05 17:13:46 by arpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ typedef struct s_player
 
 typedef struct s_colors
 {
-	int	r;
-	int	g;
-	int	b;
+	long long	r;
+	long long	g;
+	long long	b;
 }	t_colors;
 
 typedef struct s_img
@@ -182,4 +182,5 @@ void	validade_map(t_game *game);
 int		validate_walls(t_game *game, char **map);
 int		is_empty_line(char *line);
 void	trim_end_empty_lines(char **map);
+int		validate_commas(char *str);
 #endif
