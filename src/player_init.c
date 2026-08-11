@@ -22,22 +22,22 @@ static void	set_player_direction(t_game *game, char direction)
 	if (direction == 'N')
 	{
 		game->player.dir_y = -1;
-		game->player.plane_x = 1.66;
+		game->player.plane_x = 0.66;
 	}
 	else if (direction == 'S')
 	{
 		game->player.dir_y = 1;
-		game->player.plane_x = -1.66;
+		game->player.plane_x = -0.66;
 	}
 	else if (direction == 'W')
 	{
 		game->player.dir_x = -1;
-		game->player.plane_y = -1.66;
+		game->player.plane_y = -0.66;
 	}
 	else if (direction == 'E')
 	{
 		game->player.dir_x = 1;
-		game->player.plane_y = 1.66;
+		game->player.plane_y = 0.66;
 	}
 }
 
